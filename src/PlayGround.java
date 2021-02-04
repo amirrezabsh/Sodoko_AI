@@ -16,11 +16,7 @@ public class PlayGround {
         for (int i = 0; i <pow(dimension,2) ; i++) {
             firstElements.add(sc.next().trim());
         }
-        System.out.println(colors);
-        System.out.println(dimension);
-        System.out.println(pow(dimension,2));
-        System.out.println(firstElements);
-        System.out.println(colors);
+
     }
 
 

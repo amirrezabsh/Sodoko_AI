@@ -66,18 +66,8 @@ public class Node {
                 ArrayList<String> delete = new ArrayList<>();
                 for (int k = 0; k < dimension; k++) {
                     for (int l = 0; l < domains.get(i).get(j).size(); l++) {
-                        if (!status.get(i).get(j).equals(status.get(i).get(k))) {
-                            if (domains.get(i).get(j).get(l).charAt(0) == status.get(i).get(k).charAt(0)) {
-                                if (!delete.contains(domains.get(i).get(j).get(l)))
-                                    delete.add(domains.get(i).get(j).get(l));
-                            }
-                        }
-                        if (!status.get(i).get(j).equals(status.get(k).get(j))) {
-                            if (domains.get(i).get(j).get(l).charAt(0) == status.get(k).get(j).charAt(0)) {
-                                if (!delete.contains(domains.get(i).get(j).get(l)))
-                                    delete.add(domains.get(i).get(j).get(l));
-                            }
-                        }
+                        numChecker(domains, status, i, j, delete, k, l, status.get(i));
+                        numChecker(domains, status, i, j, delete, j, l, status.get(k));
                     }
                 }
                 for (int k = 0; k < domains.get(i).get(j).size(); k++) {
@@ -114,6 +104,15 @@ public class Node {
                     if (domains.get(i).get(j).contains(delete.get(k)))
                         domains.get(i).get(j).remove(delete.get(k));
                 }
+            }
+        }
+    }
+
+    private static void numChecker(ArrayList<ArrayList<ArrayList<String>>> domains, ArrayList<ArrayList<String>> status, int i, int j, ArrayList<String> delete, int k, int l, ArrayList<String> strings) {
+        if (!status.get(i).get(j).equals(strings.get(k))) {
+            if (domains.get(i).get(j).get(l).charAt(0) == strings.get(k).charAt(0)) {
+                if (!delete.contains(domains.get(i).get(j).get(l)))
+                    delete.add(domains.get(i).get(j).get(l));
             }
         }
     }

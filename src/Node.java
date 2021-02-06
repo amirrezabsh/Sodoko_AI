@@ -23,11 +23,10 @@ public class Node {
 
     public Node(ArrayList<String> colors, ArrayList<ArrayList<String>> status, int dimension) {
         this.colors = colors;
-        this.status = status;
+        copyStatus(status, this.status);
         this.dimension = dimension;
         this.domains = domainCreator(this.status, this.colors);
-        domainChecker(this.domains, this.status, this.dimension, this.availableNum);
-        System.out.println(domains);
+        domainChecker(this.domains, this.status, this.dimension, this.colors);
     }
 
     public static ArrayList<ArrayList<ArrayList<String>>> domainCreator(ArrayList<ArrayList<String>> status, ArrayList<String> colors) {
@@ -60,7 +59,7 @@ public class Node {
         return domains;
     }
 
-    public static void domainChecker(ArrayList<ArrayList<ArrayList<String>>> domains, ArrayList<ArrayList<String>> status, int dimension, ArrayList<ArrayList<String>> availableNum) {
+    public static void domainChecker(ArrayList<ArrayList<ArrayList<String>>> domains, ArrayList<ArrayList<String>> status, int dimension, ArrayList<String> colors) {
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
                 ArrayList<String> delete = new ArrayList<>();
@@ -76,6 +75,10 @@ public class Node {
                             if (!delete.contains(domains.get(i).get(j).get(k)))
                                 delete.add(domains.get(i).get(j).get(k));
                         }
+//                        if (status.get(i).get(j + 1).charAt(0) != '*' && status.get(i).get(j + 1).charAt(1) != '#')
+//                            if (Integer.parseInt(status.get(i).get(j + 1).charAt(0) + "") > Integer.parseInt(domains.get(i).get(j).get(k).charAt(0) + "") && colors.indexOf("" + status.get(i).get(j + 1).charAt(1)) > colors.indexOf("" + domains.get(i).get(j).get(k).charAt(1)))
+//                                if (!delete.contains(domains.get(i).get(j).get(k)))
+//                                    delete.add(domains.get(i).get(j).get(k));
                     } catch (Exception e) {
                     }
                     try {
@@ -83,6 +86,10 @@ public class Node {
                             if (!delete.contains(domains.get(i).get(j).get(k)))
                                 delete.add(domains.get(i).get(j).get(k));
                         }
+//                        if (status.get(i).get(j - 1).charAt(0) != '*' && status.get(i).get(j - 1).charAt(1) != '#')
+//                            if (Integer.parseInt(status.get(i).get(j - 1).charAt(0) + "") > Integer.parseInt(domains.get(i).get(j).get(k).charAt(0) + "") && colors.indexOf("" + status.get(i).get(j - 1).charAt(1)) > colors.indexOf("" + domains.get(i).get(j).get(k).charAt(1)))
+//                                if (!delete.contains(domains.get(i).get(j).get(k)))
+//                                    delete.add(domains.get(i).get(j).get(k));
                     } catch (Exception e) {
                     }
                     try {
@@ -90,6 +97,10 @@ public class Node {
                             if (!delete.contains(domains.get(i).get(j).get(k)))
                                 delete.add(domains.get(i).get(j).get(k));
                         }
+//                        if (status.get(i + 1).get(j).charAt(0) != '*' && status.get(i).get(j + 1).charAt(1) != '#')
+//                            if (Integer.parseInt(status.get(i + 1).get(j).charAt(0) + "") > Integer.parseInt(domains.get(i).get(j).get(k).charAt(0) + "") && colors.indexOf("" + status.get(i + 1).get(j).charAt(1)) > colors.indexOf("" + domains.get(i).get(j).get(k).charAt(1)))
+//                                if (!delete.contains(domains.get(i).get(j).get(k)))
+//                                    delete.add(domains.get(i).get(j).get(k));
                     } catch (Exception e) {
                     }
                     try {
@@ -97,6 +108,10 @@ public class Node {
                             if (!delete.contains(domains.get(i).get(j).get(k)))
                                 delete.add(domains.get(i).get(j).get(k));
                         }
+//                        if (status.get(i - 1).get(j).charAt(0) != '*' && status.get(i).get(j - 1).charAt(1) != '#')
+//                            if (Integer.parseInt(status.get(i - 1).get(j).charAt(0) + "") > Integer.parseInt(domains.get(i).get(j).get(k).charAt(0) + "") && colors.indexOf("" + status.get(i - 1).get(j).charAt(1)) > colors.indexOf("" + domains.get(i).get(j).get(k).charAt(1)))
+//                                if (!delete.contains(domains.get(i).get(j).get(k)))
+//                                    delete.add(domains.get(i).get(j).get(k));
                     } catch (Exception e) {
                     }
                 }
@@ -113,6 +128,15 @@ public class Node {
             if (domains.get(i).get(j).get(l).charAt(0) == strings.get(k).charAt(0)) {
                 if (!delete.contains(domains.get(i).get(j).get(l)))
                     delete.add(domains.get(i).get(j).get(l));
+            }
+        }
+    }
+
+    private static void copyStatus(ArrayList<ArrayList<String>> src, ArrayList<ArrayList<String>> dest) {
+        for (int i = 0; i < src.size(); i++) {
+            dest.add(new ArrayList<>());
+            for (int j = 0; j < src.get(i).size(); j++) {
+                dest.get(i).add(src.get(i).get(j));
             }
         }
     }

@@ -70,6 +70,10 @@ public class Node {
                     }
                 }
                 for (int k = 0; k < domains.get(i).get(j).size(); k++) {
+                    if (!checkSurrounding(status,domains,i,j,k,colors)){
+                        if (!delete.contains(domains.get(i).get(j).get(k)))
+                            delete.add(domains.get(i).get(j).get(k));
+                    }
                     try {
                         if (status.get(i).get(j + 1).charAt(1) == domains.get(i).get(j).get(k).charAt(1)) {
                             if (!delete.contains(domains.get(i).get(j).get(k)))
@@ -139,5 +143,48 @@ public class Node {
                 dest.get(i).add(src.get(i).get(j));
             }
         }
+    }
+    public static boolean checkSurrounding(ArrayList<ArrayList<String>> status, ArrayList<ArrayList<ArrayList<String>>> domains, int i, int j, int k, ArrayList<String> colors) {
+//        System.out.println(status + "/" + i + "/" + j + "/" + domains.get(i).get(j).get(k));
+        try {
+            if (status.get(i).get(j + 1).charAt(0) != '*' && status.get(i).get(j + 1).charAt(1) != '#') {
+                if (Integer.parseInt(status.get(i).get(j + 1).charAt(0) + "") > Integer.parseInt(domains.get(i).get(j).get(k).charAt(0) + "") && colors.indexOf("" + status.get(i).get(j + 1).charAt(1)) > colors.indexOf("" + domains.get(i).get(j).get(k).charAt(1)))
+                    return false;
+                if (Integer.parseInt(status.get(i).get(j + 1).charAt(0) + "") < Integer.parseInt(domains.get(i).get(j).get(k).charAt(0) + "") && colors.indexOf("" + status.get(i).get(j + 1).charAt(1)) < colors.indexOf("" + domains.get(i).get(j).get(k).charAt(1)))
+                    return false;
+            }
+        } catch (Exception e) {
+        }
+        try {
+//            System.out.println(status.get(i).get(j - 1) + "/" + colors.indexOf("" + status.get(i).get(j - 1).charAt(1)));
+            if (status.get(i).get(j - 1).charAt(0) != '*' && status.get(i).get(j - 1).charAt(1) != '#') {
+                if (Integer.parseInt(status.get(i).get(j - 1).charAt(0) + "") > Integer.parseInt(domains.get(i).get(j).get(k).charAt(0) + "") && colors.indexOf("" + status.get(i).get(j - 1).charAt(1)) > colors.indexOf("" + domains.get(i).get(j).get(k).charAt(1)))
+                    return false;
+                if (Integer.parseInt(status.get(i).get(j - 1).charAt(0) + "") < Integer.parseInt(domains.get(i).get(j).get(k).charAt(0) + "") && colors.indexOf("" + status.get(i).get(j - 1).charAt(1)) < colors.indexOf("" + domains.get(i).get(j).get(k).charAt(1)))
+                    return false;
+            }
+        } catch (Exception e) {
+        }
+        try {
+            if (status.get(i + 1).get(j).charAt(0) != '*' && status.get(i + 1).get(j).charAt(1) != '#') {
+                if (Integer.parseInt(status.get(i + 1).get(j).charAt(0) + "") > Integer.parseInt(domains.get(i).get(j).get(k).charAt(0) + "") && colors.indexOf("" + status.get(i + 1).get(j).charAt(1)) > colors.indexOf("" + domains.get(i).get(j).get(k).charAt(1)))
+                    return false;
+                if (Integer.parseInt(status.get(i + 1).get(j).charAt(0) + "") < Integer.parseInt(domains.get(i).get(j).get(k).charAt(0) + "") && colors.indexOf("" + status.get(i + 1).get(j).charAt(1)) < colors.indexOf("" + domains.get(i).get(j).get(k).charAt(1)))
+                    return false;
+            }
+        } catch (Exception e) {
+        }
+        try {
+            if (status.get(i - 1).get(j).charAt(0) != '*' && status.get(i - 1).get(j).charAt(1) != '#') {
+                if (Integer.parseInt(status.get(i - 1).get(j).charAt(0) + "") > Integer.parseInt(domains.get(i).get(j).get(k).charAt(0) + "") && colors.indexOf("" + status.get(i - 1).get(j).charAt(1)) > colors.indexOf("" + domains.get(i).get(j).get(k).charAt(1))){
+                    return false;
+                }
+                if (Integer.parseInt(status.get(i - 1).get(j).charAt(0) + "") < Integer.parseInt(domains.get(i).get(j).get(k).charAt(0) + "") && colors.indexOf("" + status.get(i - 1).get(j).charAt(1)) < colors.indexOf("" + domains.get(i).get(j).get(k).charAt(1))) {
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+        }
+        return true;
     }
 }
